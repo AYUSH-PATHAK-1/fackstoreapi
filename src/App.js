@@ -1,25 +1,40 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react'
 import './App.css';
 
+
 function App() {
+  // https://fakestoreapi.com/products
+
+  const[fack,setFack]=useState([]);
+  useEffect(()=>{
+    fackstore();
+  },[])
+
+  const fackstore=async()=>{
+    const response=await fetch("https://fakestoreapi.com/products");
+    const jsonData=await response.json();
+    setFack(jsonData);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <>
+      <h1>Fack Store API</h1>
+      <div className="container">
+         {fack.map((values)=>{
+          return(
+            <>
+            <div className="box">
+          <div className="content">
+              <h5>{values.title}</h5>
+              <p>{values.description}</p>
+          </div>
+          <img src={values.image} alt="logo" />
+        </div>
+            </>
+          )
+         })}       
+      </div>
+      </>
+  )
 }
 
-export default App;
+export default App
