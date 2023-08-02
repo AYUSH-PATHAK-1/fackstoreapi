@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react'
+// import axios from 'axios';
 import './App.css';
+import axios from 'axios';
+
+
+const apilink="https://fakestoreapi.com/products"
 
 
 function App() {
@@ -7,14 +12,17 @@ function App() {
 
   const[fack,setFack]=useState([]);
   useEffect(()=>{
-    fackstore();
+    // fackstore();
+    const data=axios.get(apilink).then((response)=>{
+      setFack(response.data);
+    })
   },[])
 
-  const fackstore=async()=>{
-    const response=await fetch("https://fakestoreapi.com/products");
-    const jsonData=await response.json();
-    setFack(jsonData);
-  }
+  // const fackstore=async()=>{
+  //   const response=await fetch("https://fakestoreapi.com/products");
+  //   const jsonData=await response.json();
+  //   setFack(jsonData);
+  // }
   return (
       <>
       <h1>Fack Store API</h1>
